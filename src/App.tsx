@@ -7,8 +7,9 @@ import HourlyForecast from "./components/HourlyForecast";
 import DailyForecast from "./components/DailyForecast";
 import CurrentComponent from "./components/Current";
 
-const API_KEY = "c1fb5f563197418db17125539242110";
-const API_URL = "/api/v1/forecast.json";
+// Use the API key from environment variables
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+const API_URL = "https://api.weatherapi.com/v1/forecast.json";
 
 const App: React.FC = () => {
   const [city, setCity] = useState<string>("cairo");
@@ -27,7 +28,7 @@ const App: React.FC = () => {
         params: {
           key: API_KEY,
           q: city,
-          days: 7,
+          days: 3,
           aqi: "yes",
           alerts: "no",
         },
