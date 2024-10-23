@@ -57,7 +57,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <main className={`h-screen relative ${isDay ? "day" : "night"}`}>
+    <main className={`min-h-screen relative ${isDay ? "day" : "night"}`}>
       <div className="max-w-2xl mx-auto px-2 py-10 flex flex-col gap-5">
         <div className="flex justify-center">
           <input
