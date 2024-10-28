@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { Current, ForecastDay, Hour, Location } from "./constans/interfaces";
+import { Forecast, Hour, Location } from "./constans/interfaces";
 import HourlyForecast from "./components/HourlyForecast";
 import DailyForecast from "./components/DailyForecast";
 import CurrentComponent from "./components/Current";
@@ -13,9 +13,8 @@ const API_URL = "https://api.weatherapi.com/v1/forecast.json";
 
 const App: React.FC = () => {
   const [city, setCity] = useState<string>("cairo");
-  const [current, setCurrent] = useState<Current | null>(null);
   const [location, setLocation] = useState<Location | null>(null);
-  const [forecastDay, setForecastDay] = useState<Array<ForecastDay> | null>(
+  const [forecastDay, setForecastDay] = useState<Forecast | null>(
     null
   );
   const [hour, setHour] = useState<Array<Hour> | null>(null);
@@ -35,9 +34,9 @@ const App: React.FC = () => {
       });
 
       if (response.status === 200) {
-        setCurrent(response.data.current);
+        console.log(response)
         setLocation(response.data.location);
-        setForecastDay(response.data.forecast.forecastday || []); // Ensuring forecastday is set to an empty array if undefined
+        setForecastDay(response.data.forecast || {}); // Ensuring forecastday is set to an empty array if undefined
         setHour(response.data.forecast.forecastday?.[0]?.hour || []); // Ensuring hour is set to an empty array if undefined
         setIsDay(response.data.current.is_day);
         setError(null);
@@ -78,10 +77,10 @@ const App: React.FC = () => {
           </button>
         </div>
         {error && <div className="text-red-500 text-center">{error}</div>}
-        {location && current && (<CurrentComponent location={location} current={current} />)}
+        {location && forecastDay && (<CurrentComponent location={location} forecast={forecastDay} />)}
         <div className="flex flex-col gap-y-5">
           {hour && <HourlyForecast hour={hour} />}
-          {forecastDay && <DailyForecast forecastday={forecastDay} />}
+          {forecastDay && <DailyForecast forecast={forecastDay} />}
         </div>
       </div>
     </main>

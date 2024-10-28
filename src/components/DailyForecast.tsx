@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Day, Forecast } from "../constans/interfaces";
+import { Day, WeatherData } from "../constans/interfaces";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 
-const DailyForecast: React.FC<Forecast> = ({ forecastday }) => {
+const DailyForecast: React.FC<WeatherData> = ({ forecast }) => {
   const [currentDay, setCurrentDay] = useState<string | null>(null);
 
   useEffect(() => {
@@ -22,12 +22,12 @@ const DailyForecast: React.FC<Forecast> = ({ forecastday }) => {
     <section className={`p-2 md:p-3 bg-sky-400 bg-opacity-30 rounded-lg`}>
       <header className="flex items-center gap-2 text-white border-b pb-2">
         <FontAwesomeIcon icon={faCalendarDays} />
-        <span>{forecastday.length}</span>
+        <span>{forecast?.forecastday.length}</span>
         <span>Day's Forecast</span>
       </header>
       <div>
-        {forecastday &&
-          forecastday.map(
+        {forecast?.forecastday &&
+          forecast.forecastday.map(
             (day: { day?: Day; date?: string }, index: number) => {
               const { date } = day;
               const {
@@ -52,7 +52,7 @@ const DailyForecast: React.FC<Forecast> = ({ forecastday }) => {
                 <article
                   key={index}
                   className={`flex items-center justify-between gap-2 text-white py-2 ${
-                    index < forecastday.length -1? "border-b" : ""
+                    index < forecast.forecastday.length -1? "border-b" : ""
                   }`}
                 >
                   <span>{currentDay === today ? "Today" : today}</span>

@@ -6,22 +6,22 @@ export interface Condition {
 
 export interface AirQuality {
   co: number;
-  gbDefraIndex: number; // Renamed for consistency with camelCase.
+  gb_defra_index: number;
   no2: number;
   o3: number;
-  pm25: number; // No need for `_`, rename to camelCase.
+  pm2_5: number;
   pm10: number;
   so2: number;
-  usEpaIndex: number;
+  us_epa_index: number;
 }
 
 export interface Current {
   condition: Condition;
-  air_quality: AirQuality; 
+  air_quality: AirQuality;
   cloud: number;
   dewpoint_c: number;
   dewpoint_f: number;
-  feelslike_c: number; 
+  feelslike_c: number;
   feelslike_f: number;
   gust_kph: number;
   gust_mph: number;
@@ -60,61 +60,62 @@ export interface Astro {
 }
 
 export interface Hour {
+  chance_of_rain: number;
+  chance_of_snow: number;
+  cloud: number;
   condition: Condition;
-  hasChanceOfRain: boolean;
-  hasChanceOfSnow: boolean;
-  dewpointC: number;
-  dewpointF: number;
-  feelsLikeC: number;
-  feelsLikeF: number;
-  gustKph: number;
-  gustMph: number;
-  heatIndexC: number;
-  heatIndexF: number;
+  dewpoint_c: number;
+  dewpoint_f: number;
+  feelslike_c: number;
+  feelslike_f: number;
+  gust_kph: number;
+  gust_mph: number;
+  heatindex_c: number;
+  heatindex_f: number;
   humidity: number;
-  isDay: boolean;
-  precipIn: number;
-  precipMm: number;
-  pressureIn: number;
-  pressureMb: number;
-  snowCm: number;
+  is_day: number;
+  precip_in: number;
+  precip_mm: number;
+  pressure_in: number;
+  pressure_mb: number;
+  snow_cm: number;
   temp_c: number;
   temp_f: number;
   time: string;
-  timeEpoch: number;
+  time_epoch: number;
   uv: number;
-  visKm: number;
-  visMiles: number;
-  willItRain: number;
-  willItSnow: number;
-  windDegree: number;
-  windDir: string;
-  windKph: number;
-  windMph: number;
-  windChillC: number;
-  windChillF: number;
+  vis_km: number;
+  vis_miles: number;
+  will_it_rain: number;
+  will_it_snow: number;
+  wind_degree: number;
+  wind_dir: string;
+  wind_kph: number;
+  wind_mph: number;
+  windchill_c: number;
+  windchill_f: number;
 }
 
 export interface Day {
-  condition: Condition;
-  avgHumidity: number;
+  avghumidity: number;
   avgtemp_c: number;
-  avgTemp_f: number;
-  avgVisKm: number;
-  avgVisMiles: number;
-  dailyChanceOfRain: boolean;
-  dailyChanceOfSnow: boolean;
-  dailyWillItRain: boolean;
-  dailyWillItSnow: boolean;
+  avgtemp_f: number;
+  avgvis_km: number;
+  avgvis_miles: number;
+  condition: Condition;
+  daily_chance_of_rain: number;
+  daily_chance_of_snow: number;
+  daily_will_it_rain: number;
+  daily_will_it_snow: number;
   maxtemp_c: number;
-  maxTempF: number;
-  maxWindKph: number;
-  maxWindMph: number;
+  maxtemp_f: number;
+  maxwind_kph: number;
+  maxwind_mph: number;
   mintemp_c: number;
-  minTempF: number;
-  totalPrecipIn: number;
-  totalPrecipMm: number;
-  totalSnowCm: number;
+  mintemp_f: number;
+  totalprecip_in: number;
+  totalprecip_mm: number;
+  totalsnow_cm: number;
   uv: number;
 }
 
@@ -122,16 +123,16 @@ export interface Location {
   readonly country: string;
   readonly lat: number;
   readonly localtime: string;
-  readonly localtimeEpoch: number;
+  readonly localtime_epoch: number;
   readonly lon: number;
   readonly name: string;
   readonly region: string;
-  readonly tzId: string;
+  readonly tz_id: string;
 }
 
 export interface ForecastDay {
   date: string;
-  dateEpoch: number;
+  date_epoch: number;
   astro?: Astro;
   day?: Day;
   hour: Hour[];
@@ -141,8 +142,8 @@ export interface Forecast {
   forecastday: ForecastDay[];
 }
 
-export interface WeatherData { 
-  current: Current;
-  location: Location;
+export interface WeatherData {
+  current?: Current;
+  location?: Location;
   forecast?: Forecast;
 }

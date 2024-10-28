@@ -1,6 +1,7 @@
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState, useRef } from "react";
+import { format, parseISO } from "date-fns"; // Import date-fns functions
 import { Hour } from "../constans/interfaces";
 
 interface HourlyForecastProps {
@@ -13,7 +14,7 @@ const HourlyForecast: React.FC<HourlyForecastProps> = ({ hour }) => {
 
   useEffect(() => {
     const updateTime = () => {
-      const currentTime = new Date().toLocaleString("en-US", { hour: "numeric" });
+      const currentTime = format(new Date(), "h aaa"); // Format current time in 12-hour format with AM/PM
       setTimeNow(currentTime);
     };
 
@@ -40,7 +41,7 @@ const HourlyForecast: React.FC<HourlyForecastProps> = ({ hour }) => {
       <div className="flex overflow-x-scroll gap-2 my-3 hide-scrollbar">
         {hour.length > 0 ? (
           hour.map((h) => {
-            const forecastHour = new Date(h.time).toLocaleString("en-US", { hour: "numeric" });
+            const forecastHour = format(parseISO(h.time), "h aaa"); // Parse and format h.time to 12-hour format with AM/PM
             const isCurrentHour = timeNow === forecastHour;
             return (
               <div
